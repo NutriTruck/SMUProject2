@@ -4,7 +4,7 @@ var bodyParser = require("body-parser");
 var app = express();
 var PORT = process.env.PORT || 8000;
 
-var db = require("./modles");
+var db = require("./models");
 
 app.use(bodyParser.json());
 app.use(bodyPaser.urlencoded({extended: true}));
