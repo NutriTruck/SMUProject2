@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
-	var Gift = sequelize.define("Gift", {
-		gift: {
+	var Giftee = sequelize.define("Giftee", {
+		name: {
 			type: DataTypes.STRING
 		},
 		gender: {
@@ -30,5 +30,5 @@ module.exports = function(sequelize, DataTypes) {
 			}
 		}
 	});
-	return Gift;
+	return Giftee;
 };
