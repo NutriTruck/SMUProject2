@@ -7,11 +7,11 @@ var PORT = process.env.PORT || 8000;
 var db = require("./models");
 
 app.use(bodyParser.json());
-app.use(bodyPaser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.text());
 app.use(bodyParser.json({type: "application/vnd.api+json"}));
 
-app.use(express.static("public"));
+app.use(express.static("./public"));
 
 require("./routes/api-routes.js")(app);
 
