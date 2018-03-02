@@ -1,0 +1,57 @@
+<!DOCTYPE html><html 
+lang="en">
+<head> 
+ <meta charset="UTF-8"> 
+  <title>Login Page</title>  <!-- Added link to the jQuery Library -->  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script> 
+ <!-- Added a link to Bootstrap--> 
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+ 
+ <!-- Reference external css file --><!-- 
+ <link rel="stylesheet" type="text/css" href="login.css"> -->
+</head>
+
+
+<body>
+	<div class="container">
+
+<div class="row" style="margin-top:20px">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+		<form role="form">
+			<fieldset>
+				<h2>Please Register below</h2>
+				<hr class="register">
+				<div id="required">
+					<p>Please enter all the required information to proceed</p>
+				</div>
+				 
+				   <div class="form-group">
+                    <input type="text" name="firstname" id="firstname" class="form-control input-lg" placeholder="First name">
+				</div>
+				<div class="form-group">
+                    <input type="text" name="lastname" id="lastname" class="form-control input-lg" placeholder="Last name">
+				</div>
+				<div class="form-group">
+                    <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address">
+				</div>
+
+				<div class="form-group">
+                    <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
+				</div>
+				<hr class="register">
+				<div class="row">
+					<div class="col-xs-6 col-sm-6 col-md-6">
+                        <input type="submit" class="btn btn-lg btn-success btn-block" value="Register" id ="register">
+					</div>
+				
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+
+</div>
+<script src="../public/assets/javascript/register.js"></script>
+</body>
+
