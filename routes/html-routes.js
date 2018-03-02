@@ -5,4 +5,20 @@ module.exports = function(app){
 	app.get("/", function(req, res){
 		res.sendFile(path.join(__dirname, "../views/add.html"));
 	});
+
+	app.get("/add", function(req, res){
+		res.sendFile(path.join(__dirname, "../views/add.html"));
+	});
+
+	app.get("/request", function(req, res){
+		res.sendFile(path.join(__dirname, "../views/giftreq.html"));
+	});
+
+	app.get("/login", function(req, res){
+		res.sendFile(path.join(__dirname, "../views/login.html"));
+	});
+
+	app.get("/register", function(req, res){
+		res.sendFile(path.join(__dirname, "../views/register.html"));
+	});
 };
