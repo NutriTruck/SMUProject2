@@ -5,19 +5,20 @@ $("#request").on("submit", function(evt){
 	var request = {
 		name: $("#name").val().trim(),
 		age: $("#age").val().trim(),
-		gender: $("#gender").val().trim(),
-		hobby: $("#hobby").val().trim().split(','),
-		like: $("#like").val().trim().split(',')
+		gender: $("#gender").val(),
+		hobbies: $("#hobby").val().trim().split(','),
+		likes: $("#like").val().trim().split(','),
+		priority: $("#priority").val().toLowerCase()
 	};
-
-	console.log(request);
 
 	requestGift(request);
 });
 
 //Function for handling creating request
 function requestGift(req){
-	$.post("/api/request/", req, function(){
+	console.log(req);
+	$.get("/api/request/"+req.priority+"/"+req[req.priority], function(data){
+		console.log(data);
 		console.log("Request submitted");
 	});
 }

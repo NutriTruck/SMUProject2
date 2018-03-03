@@ -23,5 +23,14 @@ module.exports = function(app){
 			res.json(gift);
 		});
 	});
+
+	//Get route for returning a gift from DB
+	app.get('/api/request/:priority/:value', function(req, res){
+		db.Gift.findAll({
+			where: {[req.params.priority]: req.params.value}
+		}).then(function(gifts){
+			res.json(gifts);
+		});
+	});
 };
 
