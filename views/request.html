@@ -5,7 +5,7 @@ lang="en">
  <meta charset="UTF-8"> 
   <title>Request a gift</title>  <!-- Added link to the jQuery Library -->  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-</script> 
+  </script> 
  <!-- Added a link to Bootstrap--> 
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
  
@@ -35,32 +35,38 @@ lang="en">
 <div class="container">
   <h2>Personalize the gift</h2>
   <p>Answer the following questions so we can help personalize the gift for you</p>
-  <form>
+  <form id="request">
     <div class="form-group">
-      <label for="usr">Hobbies:</label>
-      <input type="text" class="form-control" id="usr">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name">
     </div>
     <div class="form-group">
-      <label for="usr">Line of work:</label>
-      <input type="text" class="form-control" id="usr">
+      <label for="age">Age:</label>
+      <input type="text" class="form-control" id="age">
     </div>
     <div class="form-group">
-      <label for="usr">Places they have visited or will like to visit:</label>
-      <input type="text" class="form-control" id="usr">
+      <label for="gender">Gender:</label>
+      <select class="form-control" id="gender">
+        <option>Male</option>
+        <option>Female</option>
+      </select>
     </div>
     <div class="form-group">
-      <label for="usr">Their favorite food:</label>
-      <input type="text" class="form-control" id="usr">
+      <label for="hobby">Hobbies (Comma separate values):</label>
+      <input type="text" class="form-control" id="hobby">
     </div>
     <div class="form-group">
-      <label for="usr">Type of gift you they will like:</label>
-      <input type="text" class="form-control" id="usr">
+      <label for="like">Likes (Comma separate values):</label>
+      <input type="text" class="form-control" id="like">
     </div>
+
     <div class="col-xs-6 col-sm-6 col-md-6">
-      <input type="submit" class="btn btn-lg btn-success btn-block" value="Submit">
-          </div>
+      <input type="submit" class="btn btn-lg btn-success btn-block" value="Submit" id='submit'>
+    </div>
   </form>
 </div>
+
+<script src=".../public/assets/javascript/request.js"></script>
 
 </body>
 </html>  
