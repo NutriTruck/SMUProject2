@@ -10,7 +10,7 @@ module.exports = function(app){
 	});
 
 	//Post route for creating new gifts in the DB
-	app.post('/api/gift', function(req, res){
+	app.post('/api/gift/', function(req, res){
 		console.log(req);
 
 		db.Gift.create({
@@ -19,6 +19,8 @@ module.exports = function(app){
 			gender: req.body.gender,
 			hobbies: req.body.hobbies,
 			likes: req.body.likes
+		}).then(function(gift){
+			res.json(gift);
 		});
 	});
 };

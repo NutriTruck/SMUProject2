@@ -26,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
 				return this.getDataValue('likes').split(';');
 			},
 			set: function(val){
-				this.setDataValue('likes').split(';');
+				this.setDataValue('likes', val.join(';'));
 			}
 		}
 	});

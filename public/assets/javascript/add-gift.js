@@ -13,14 +13,18 @@ $("#add-gift").on("submit", function(evt){
 
 	//TODO: Validation
 
-	console.log(gift);
-
 	requestGift(gift);
+
+	//Reset inputs
+	$("#gift").val('');
+	$("#age").val('');
+	$("#hobby").val('');
+	$("#like").val('');
 });
 
 //Function for handling creating request
 function requestGift(gift){
-	$.post("/api/gift", gift, function(){
-		console.log("Gift added");
+	$.post("/api/gift/", gift, function(){
+		
 	});
 }

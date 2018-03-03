@@ -11,7 +11,7 @@ module.exports = function(app){
 	});
 
 	app.get("/request", function(req, res){
-		res.sendFile(path.join(__dirname, "../views/giftreq.html"));
+		res.sendFile(path.join(__dirname, "../views/request.html"));
 	});
 
 	app.get("/login", function(req, res){
