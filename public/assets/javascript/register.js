@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
 $("#required").hide()
 $("#register").on("click", function(event){
@@ -29,3 +30,4 @@ $("#register").on("click", function(event){
 })
 
 })
+
