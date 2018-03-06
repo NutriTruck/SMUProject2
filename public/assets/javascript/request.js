@@ -19,37 +19,69 @@ function requestGift(req){
 	console.log(req);
 	$.get("/api/request/"+req.priority+"/"+req[req.priority], function(data){
 		console.log(data);
-		//console.log(findGift(req, data));
+		console.log(findGift(req, data));
 	});
 };
 
 function findGift(giftee, gifts){
-	//Create empty array to hold possibl gifts
+	//Create empty array to hold possible gifts
 	var giftArray = [];
 
 	//Variable for holding match closeness
-	var matchValue = 0;
+	var matchValue;
+	var ageDif;
+	var arrIndex;
 
 	//Check over returned results and add gifts to the array
 	for(var i = 0; i < gifts.length; i++){
-		matchValue += Math.abs(giftee.age - gifts[i].age);
-		if(giftee.gender === gifts[i].gender){
+		//Reset match value
+		matchValue = 0;
+
+		//Calculate age difference
+		ageDif = Math.abs(giftee.age - gifts[i].age);
+
+		//Score based on how close age matches
+		if(ageDif <= 5){
 			matchValue += 10;
+		}else if(ageDif <= 10){
+			matchValue += 5;
 		}
-		if(giftee.hobbies === gifts[i].hobbies){
-			matchValue += 10;
-		}
-		if(giftee.likes === gifts[i].likes){
+
+		//Check if gender matches
+		if(giftee.gender.toLowerCase() === gifts[i].gender){
 			matchValue += 10;
 		}
 
+		//Loop over hobbies arrays and add score if any match
+		for(var j = 0; j < giftee.hobbies.length; j++){
+			for(var k = 0; k < gifts[i].hobbies.length; k++){
+				if(giftee.hobbies[j].toLowerCase() === gifts[i].hobbies[k]){
+					matchValue += 5;
+				} 
+			} 
+		}
+
+		//Loop over hobbies arrays and add score if any match
+		for(var j = 0; j < giftee.likes.length; j++){
+			for(var k = 0; k < gifts[i].likes.length; k++){
+				if(giftee.likes[j].toLowerCase() === gifts[i].likes[k]){
+					matchValue += 5;
+				} 
+			} 
+		}
+
 		//If a gift if not present, add it, else average out the value
-		if(giftArray.indexOf(gifts[i].gift) === -1){
-			giftArray.push([gifts[i].gift, matchValue]);
+		arrIndex = searchGifts(giftArray, gifts[i].gift);
+		if(arrIndex === -1){
+			giftArray.push([gifts[i].gift, matchValue, 1]);
 		} else {
-			giftArray[x][1] = ((matchValue+giftArray[x][1])/2);
+			//Add match value to the total
+			giftArray[arrIndex][1] += matchValue;
+			//Increase number of times gift was suggested
+			giftArray[arrIndex][2]++;
 		}
 	}
+	return giftArray;
 };
 
 //Function for trimming array items of whitespace
@@ -59,3 +91,20 @@ function trimArray(arr){
 	}
 	return arr;
 };
+
+//Function for searching the multilayered array for a value
+function searchGifts(arr, value){
+	for(var i = 0; i < arr.length; i++){
+		if(arr[i][0] === value){
+			return i;
+		}
+	}
+	return -1;
+}
+
+function sortGifts(arr){
+	//Temporary array for storing sorted values
+	var tempArray = [];
+
+	
+}

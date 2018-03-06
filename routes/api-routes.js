@@ -36,9 +36,9 @@ module.exports = function(app){
 
 		switch(priority){
 			case 'age':
-					//Finds all + or - 10 years of age
+					//Finds all + or - 5 years of age
 					db.Gift.findAll({
-						where: {[priority]: {[Op.between]: [value-10, value+10]}}
+						where: {[priority]: {[Op.between]: [value-5, value+5]}}
 					}).then(function(gifts){
 						res.json(gifts);
 					});
@@ -57,11 +57,8 @@ module.exports = function(app){
 					var regex;
 					value = value.split(',');
 					regex = value.join('|');
-					// for(var i = 0; i < value.length; i++){
-					// 	sqlString.push('%'+value[i]+'%');
-					// }
+					
 					console.log(value);
-					console.log(regex);
 
 					db.Gift.findAll({
 						where: {[priority]: {[Op.regexp]: regex}}
