@@ -81,7 +81,8 @@ function findGift(giftee, gifts){
 			giftArray[arrIndex][2]++;
 		}
 	}
-	return giftArray;
+
+	return sortGifts(giftArray);
 };
 
 //Function for trimming array items of whitespace
@@ -92,7 +93,7 @@ function trimArray(arr){
 	return arr;
 };
 
-//Function for searching the multilayered array for a value
+//Function for searching the multidimensional array for a value
 function searchGifts(arr, value){
 	for(var i = 0; i < arr.length; i++){
 		if(arr[i][0] === value){
@@ -106,5 +107,12 @@ function sortGifts(arr){
 	//Temporary array for storing sorted values
 	var tempArray = [];
 
-	
+	for(var i = 0; i < arr.length; i++){
+		//Push the array values, averaging the match closeness
+		tempArray.push([arr[i][0], arr[i][1]/arr[i][2], arr[i][2]]);
+	}
+
+	tempArray.sort(function(a, b){return b[1] - a[1]});
+
+	return tempArray;
 }
