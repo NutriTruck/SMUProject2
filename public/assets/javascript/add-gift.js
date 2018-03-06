@@ -2,13 +2,13 @@
 $("#add-gift").on("submit", function(evt){
 	evt.preventDefault();
 
-	//Grab data from inputs and creatings a new object
+	//Grab data from inputs and create a new object
 	var gift = {
 		gift: $("#gift").val().trim(),
 		age: $("#age").val().trim(),
 		gender: $("#gender").val().trim(),
-		hobbies: $("#hobby").val().trim().split(','),
-		likes: $("#like").val().trim().split(',')
+		hobbies: trimArray($("#hobby").val().trim().split(',')),
+		likes: trimArray($("#like").val().trim().split(','))
 	};
 
 	//TODO: Validation
@@ -27,4 +27,12 @@ function requestGift(gift){
 	$.post("/api/gift/", gift, function(){
 		
 	});
+}
+
+//Function for trimming array items of whitespace
+function trimArray(arr){
+	for(var i = 0; i < arr.length; i++){
+		arr[i] = arr[i].trim().replace(/ /g,"_");
+	}
+	return arr;
 }

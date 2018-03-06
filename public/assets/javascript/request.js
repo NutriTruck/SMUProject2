@@ -6,8 +6,8 @@ $("#request").on("submit", function(evt){
 		name: $("#name").val().trim(),
 		age: $("#age").val().trim(),
 		gender: $("#gender").val(),
-		hobbies: $("#hobby").val().trim().split(','),
-		likes: $("#like").val().trim().split(','),
+		hobbies: trimArray($("#hobby").val().trim().split(',')),
+		likes: trimArray($("#like").val().trim().split(',')),
 		priority: $("#priority").val().toLowerCase()
 	};
 
@@ -19,9 +19,9 @@ function requestGift(req){
 	console.log(req);
 	$.get("/api/request/"+req.priority+"/"+req[req.priority], function(data){
 		console.log(data);
-		console.log(findGift(req, data));
+		//console.log(findGift(req, data));
 	});
-}
+};
 
 function findGift(giftee, gifts){
 	//Create empty array to hold possibl gifts
@@ -50,4 +50,12 @@ function findGift(giftee, gifts){
 			giftArray[x][1] = ((matchValue+giftArray[x][1])/2);
 		}
 	}
+};
+
+//Function for trimming array items of whitespace
+function trimArray(arr){
+	for(var i = 0; i < arr.length; i++){
+		arr[i] = arr[i].trim().replace(/ /g,"_");
+	}
+	return arr;
 };
