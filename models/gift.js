@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
 				return this.getDataValue('hobbies').split(';');
 			},
 			set: function(val){
-				this.setDataValue('hobbies', val.join(';'));
+				this.setDataValue('hobbies', val.join(';').toLowerCase());
 			}
 		},
 		likes: {
@@ -26,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
 				return this.getDataValue('likes').split(';');
 			},
 			set: function(val){
-				this.setDataValue('likes', val.join(';'));
+				this.setDataValue('likes', val.join(';').toLowerCase());
 			}
 		}
 	});
