@@ -19,7 +19,9 @@ function requestGift(req){
 	console.log(req);
 	$.get("/api/request/"+req.priority+"/"+req[req.priority], function(data){
 		console.log(data);
-		console.log(findGift(req, data));
+		var result = findGift(req, data);
+		console.log(result);
+		$("#results").html(JSON.stringify(result));
 	});
 };
 
