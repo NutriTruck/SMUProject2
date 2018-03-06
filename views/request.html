@@ -20,11 +20,11 @@ lang="en">
       <a class="navbar-brand" href="#">Find a Gift</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="add.html">Home</a></li>
+      <li><a href="add">Home</a></li>
       
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li class="active"><a href="giftreq.html">Gift Request</a></li>
+      <li class="active"><a href="request">Gift Request</a></li>
       <li><a href="options.html">Gift Options</a></li>
       <!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Out</a></li> -->
       <li><a href="login.html"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
@@ -59,8 +59,15 @@ lang="en">
       <label for="like">Likes (Comma separate values):</label>
       <input type="text" class="form-control" id="like">
     </div>
-
-    <!--TODO: Add select option for search priority-->
+    <div class="form-group">
+      <label for="priority">Search Priority:</label>
+      <select class="form-control" id="priority">
+        <option>Hobbies</option>
+        <option>Likes</option>
+        <option>Gender</option>
+        <option>Age</option>
+      </select>
+    </div>
 
     <!--TODO: Optional save if user is logged in-->
 
@@ -68,9 +75,11 @@ lang="en">
       <input type="submit" class="btn btn-lg btn-success btn-block" value="Submit" id='submit'>
     </div>
   </form>
+
+   <div id="results"></div>
 </div>
 
-<script src=".../public/assets/javascript/request.js"></script>
+<script src="./assets/javascript/request.js"></script>
 
 </body>
 </html>  
