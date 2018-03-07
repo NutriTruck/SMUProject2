@@ -2,11 +2,11 @@
   <p>Gift Finder gets better the more it knows about people, we'd love to hear about a wonderful gift you or someone you know has recieved. Please take a moment to fill out the following information and be the gift that keeps on giving.</p>
   <form id="add-gift">
     <div class="form-group">
-      <label for="gift">Gift:</label>
+      <label for="gift">Gift: <span class="error" id="giftErr"></span></label>
       <input type="text" class="form-control" id="gift">
     </div>
     <div class="form-group">
-      <label for="age">Age:</label>
+      <label for="age">Age: <span class="error" id="ageErr"></span></label>
       <input type="text" class="form-control" id="age">
     </div>
     <div class="form-group">
@@ -17,12 +17,12 @@
       </select>
     </div>
     <div class="form-group">
-      <label for="hobby">Hobbies (Comma separate values):</label>
-      <input type="text" class="form-control" id="hobby">
+      <label for="hobbies">Hobbies (Comma separate values): <span class="error" id="hobbyErr"></span></label>
+      <input type="text" class="form-control" id="hobbies">
     </div>
     <div class="form-group">
-      <label for="like">Likes (Comma separate values):</label>
-      <input type="text" class="form-control" id="like">
+      <label for="likes">Likes (Comma separate values): <span class="error" id="likeErr"></span></label>
+      <input type="text" class="form-control" id="likes">
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6">

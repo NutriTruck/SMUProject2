@@ -5,17 +5,20 @@ var count;
 $("#request").on("submit", function(evt){
 	evt.preventDefault();
 
-	//Grab data from inputs and create a new object
-	var request = {
-		name: $("#name").val().trim(),
-		age: $("#age").val().trim(),
-		gender: $("#gender").val(),
-		hobbies: trimArray($("#hobby").val().trim().split(',')),
-		likes: trimArray($("#like").val().trim().split(',')),
-		priority: $("#priority").val().toLowerCase()
-	};
+	//Validates form input
+	if(validation()){
+		//Grab data from inputs and create a new object
+		var request = {
+			name: $("#name").val().trim(),
+			age: $("#age").val().trim(),
+			gender: $("#gender").val(),
+			hobbies: trimArray($("#hobbies").val().trim().split(',')),
+			likes: trimArray($("#likes").val().trim().split(',')),
+			priority: $("#priority").val().toLowerCase()
+		};
 
-	requestGift(request);
+		requestGift(request);
+	}
 });
 
 //Control buttons for switching between gift options
@@ -37,11 +40,22 @@ $("#nextGift").on('click', function(evt){
 	displayGift(result[count]);
 });
 
+//Toggles the modal when available
+$(document).on('click', '#modal-toggle', function(evt){
+	$("#giftModal").modal('toggle');
+});
+
 //Function for handling creating request
 function requestGift(req){
 	$.get("/api/request/"+req.priority+"/"+req[req.priority], function(data){
+		//Log the results to the page
 		count = 0;
 		result = findGift(req, data);
+
+		//Creates a button for opening the modal if you close it
+		$("#results-button").html("<button id='modal-toggle'>Your Results</button>");
+
+		//Open modal and display results
 		console.log(result);
 		$("#giftModal").modal('toggle');
 		displayGift(result[count]);
@@ -146,4 +160,44 @@ function displayGift(result){
 	$("#gift-result").html(result.gift);
 	$("#gift-score").html(result.avgVal);
 	$("#gift-matches").html(result.matches);
+}
+
+function validation(){
+	var failure = 0;
+	console.log($("#hobbies").val());
+
+	//Clear any alerts
+	$(".alert").removeClass('alert alert-danger');
+	$(".error").html("");
+
+	if($("#name").val() === ""){
+		$("#name").addClass('alert alert-danger');
+		$("#nameErr").html("Please fill out this field.").addClass("alert alert-danger");
+		failure++;
+	}
+	if($("#age").val() === ""){
+		$("#age").addClass('alert alert-danger');
+		$("#ageErr").html("Please fill out this field.").addClass("alert alert-danger");
+		failure++;
+	}else if(isNaN($("#age").val())){
+		$("#age").addClass('alert alert-danger');
+		$("#ageErr").html("Please enter a number.").addClass("alert alert-danger");
+		failure++;
+	}
+	if($("#hobbies").val() == ""){
+		$("#hobbies").addClass('alert alert-danger');
+		$("#hobbyErr").html("Please fill out this field.").addClass("alert alert-danger");
+		failure++;
+	}
+	if($("#likes").val() == ""){
+		$("#likes").addClass('alert alert-danger');
+		$("#likeErr").html("Please fill out this field.").addClass("alert alert-danger");
+		failure++;
+	}
+
+	if(failure == 0){
+		return true;
+	} else {
+		return false;
+	}
 }
