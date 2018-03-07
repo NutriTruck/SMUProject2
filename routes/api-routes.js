@@ -14,8 +14,6 @@ module.exports = function(app){
 
 	//Post route for creating new gifts in the DB
 	app.post('/api/gift/', function(req, res){
-		console.log(req);
-
 		db.Gift.create({
 			gift: req.body.gift,
 			age: req.body.age,
@@ -31,8 +29,6 @@ module.exports = function(app){
 	app.get('/api/request/:priority/:value', function(req, res){
 		var priority = req.params.priority;
 		var value = req.params.value.toLowerCase();
-		console.log(priority);
-		console.log(value);
 
 		switch(priority){
 			case 'age':
@@ -57,8 +53,6 @@ module.exports = function(app){
 					var regex;
 					value = value.split(',');
 					regex = value.join('|');
-					
-					console.log(value);
 
 					db.Gift.findAll({
 						where: {[priority]: {[Op.regexp]: regex}}
