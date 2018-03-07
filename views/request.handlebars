@@ -55,15 +55,22 @@
         </button>
       </div>
       <div class="modal-body">
-          <div id="gift-result"></div>
-          <div>
-            Based on the average score of: <span id="gift-score"></span>
+          <div id="giftCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators" id="carousel-indicators">
+              
+            </ol>
+            <div class="carousel-inner" id="carousel-items">
+            
+            </div>
+            <a class="carousel-control-prev" href="#giftCarousel" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#giftCarousel" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
           </div>
-          <div>
-            And the <span id="gift-matches"></span>
-          </div>
-          <button id="prevGift"><</button>
-          <button id="nextGift">></button>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -71,6 +78,5 @@
     </div>
   </div>
 </div>
-
 
 <script src="./assets/javascript/request.js"></script>

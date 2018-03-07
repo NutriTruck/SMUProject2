@@ -1,6 +1,5 @@
 //Variables for keeping track of result data
-var result;
-var count;
+var results;
 
 $("#request").on("submit", function(evt){
 	evt.preventDefault();
@@ -21,25 +20,6 @@ $("#request").on("submit", function(evt){
 	}
 });
 
-//Control buttons for switching between gift options
-$("#prevGift").on('click', function(evt){
-	if(count-1 == -1){
-		count = result.length-1;
-	} else {
-		count--;
-	}
-	displayGift(result[count]);
-});
-
-$("#nextGift").on('click', function(evt){
-	if(count+1 == 10 || count+1 == result.length){
-		count = 0;
-	} else {
-		count++;
-	}
-	displayGift(result[count]);
-});
-
 //Toggles the modal when available
 $(document).on('click', '#modal-toggle', function(evt){
 	$("#giftModal").modal('toggle');
@@ -48,17 +28,22 @@ $(document).on('click', '#modal-toggle', function(evt){
 //Function for handling creating request
 function requestGift(req){
 	$.get("/api/request/"+req.priority+"/"+req[req.priority], function(data){
-		//Log the results to the page
-		count = 0;
-		result = findGift(req, data);
+		//Handle no results
+		if(data.length == 0){
+			alert("No matches found :(");
+		} else {
+			//Log the results to the page
+			count = 0;
+			results = findGift(req, data);
 
-		//Creates a button for opening the modal if you close it
-		$("#results-button").html("<button id='modal-toggle'>Your Results</button>");
+			//Creates a button for opening the modal if you close it
+			$("#results-button").html("<button id='modal-toggle'>Your Results</button>");
 
-		//Open modal and display results
-		console.log(result);
-		$("#giftModal").modal('toggle');
-		displayGift(result[count]);
+			//Open modal and display results
+			console.log(results);
+			$("#giftModal").modal('toggle');
+			displayGift(results);
+		}
 	});
 };
 
@@ -156,10 +141,19 @@ function sortGifts(arr){
 	return tempArray;
 }
 
-function displayGift(result){
-	$("#gift-result").html(result.gift);
-	$("#gift-score").html(result.avgVal);
-	$("#gift-matches").html(result.matches);
+function displayGift(results){
+	for(var i = 0; i < results.length; i++){
+		console.log(i);
+		$("#carousel-indicators").append("<li data-target='#giftCarousel' data-slide-to='"+results[i]+((i == 0) ? "' class='active'></li>" : "'></li>"));
+		$("#carousel-items").append("<div class='carousel-item"+((i == 0) ? " active'>" : "'>")+
+            "<img class='d-block w-100' src='./assets/img/KirumiPlaceholder.png' alt='"+results[i].gift+"'>"+
+            "<div class='carousel-caption d-none d-md-block'>"+
+            "<h5>"+results[i].gift+"</h5>"+
+            "<p>Average match score of "+results[i].avgVal+".</p>"+
+            "<p>Matched "+results[i].matches+" times.</p>"+
+            "</div>"+
+        "</div>");
+	}
 }
 
 function validation(){
