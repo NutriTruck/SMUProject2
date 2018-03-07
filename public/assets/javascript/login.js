@@ -11,7 +11,7 @@ $(document).ready(function(){
 			var password = $("#email").val().trim();
 			console.log( email + password)
 			if(email !== "" && password !== ""){
-			window.location.href = "profile.html";
+			window.location.href = "/profile";
 			}
 			 
 		}else{
