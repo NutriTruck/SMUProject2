@@ -17,9 +17,8 @@ $("#request").on("submit", function(evt){
 //Function for handling creating request
 function requestGift(req){
 	$.get("/api/request/"+req.priority+"/"+req[req.priority], function(data){
-		console.log(data);
 		var result = findGift(req, data);
-		$("#results").html(JSON.stringify(result));
+		console.log(result);
 		$("#exampleModal").modal('toggle');
 	});
 };
@@ -74,12 +73,12 @@ function findGift(giftee, gifts){
 		//If a gift if not present, add it, else average out the value
 		arrIndex = searchGifts(giftArray, gifts[i].gift);
 		if(arrIndex === -1){
-			giftArray.push([gifts[i].gift, matchValue, 1]);
+			giftArray.push({gift: gifts[i].gift, totalVal: matchValue, matches: 1});
 		} else {
 			//Add match value to the total
-			giftArray[arrIndex][1] += matchValue;
+			giftArray[arrIndex].totalVal += matchValue;
 			//Increase number of times gift was suggested
-			giftArray[arrIndex][2]++;
+			giftArray[arrIndex].matches++;
 		}
 	}
 
@@ -94,10 +93,10 @@ function trimArray(arr){
 	return arr;
 };
 
-//Function for searching the multidimensional array for a value
+//Function for searching the object for a value
 function searchGifts(arr, value){
 	for(var i = 0; i < arr.length; i++){
-		if(arr[i][0] === value){
+		if(arr[i].gift === value){
 			return i;
 		}
 	}
@@ -110,10 +109,10 @@ function sortGifts(arr){
 
 	for(var i = 0; i < arr.length; i++){
 		//Push the array values, averaging the match closeness
-		tempArray.push([arr[i][0], arr[i][1]/arr[i][2], arr[i][2]]);
+		tempArray.push({gift: arr[i].gift, avgVal: arr[i].totalVal/arr[i].matches, matches: arr[i].matches});
 	}
 
-	tempArray.sort(function(a, b){return b[1] - a[1]});
+	tempArray.sort(function(a, b){return b.avgVal - a.avgVal});
 
 	return tempArray;
 }
