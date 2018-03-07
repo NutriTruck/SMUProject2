@@ -16,8 +16,8 @@ $("#request").on("submit", function(evt){
 
 //Function for handling creating request
 function requestGift(req){
-	console.log(req);
 	$.get("/api/request/"+req.priority+"/"+req[req.priority], function(data){
+		console.log(data);
 		var result = findGift(req, data);
 		$("#results").html(JSON.stringify(result));
 	});

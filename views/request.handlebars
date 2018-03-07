@@ -1,0 +1,48 @@
+<div class="container">
+  <h2>Personalize the gift</h2>
+  <p>Answer the following questions so we can help personalize the gift for you</p>
+  <form id="request">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name">
+    </div>
+    <div class="form-group">
+      <label for="age">Age:</label>
+      <input type="text" class="form-control" id="age">
+    </div>
+    <div class="form-group">
+      <label for="gender">Gender:</label>
+      <select class="form-control" id="gender">
+        <option>Male</option>
+        <option>Female</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="hobby">Hobbies (Comma separate values):</label>
+      <input type="text" class="form-control" id="hobby">
+    </div>
+    <div class="form-group">
+      <label for="like">Likes (Comma separate values):</label>
+      <input type="text" class="form-control" id="like">
+    </div>
+    <div class="form-group">
+      <label for="priority">Search Priority:</label>
+      <select class="form-control" id="priority">
+        <option>Hobbies</option>
+        <option>Likes</option>
+        <option>Gender</option>
+        <option>Age</option>
+      </select>
+    </div>
+
+    <!--TODO: Optional save if user is logged in-->
+
+    <div class="col-xs-6 col-sm-6 col-md-6">
+      <input type="submit" class="btn btn-lg btn-success btn-block" value="Submit" id='submit'>
+    </div>
+  </form>
+
+   <div id="results"></div>
+</div>
+
+<script src="./assets/javascript/request.js"></script>
