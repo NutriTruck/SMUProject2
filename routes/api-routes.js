@@ -62,5 +62,19 @@ module.exports = function(app){
 				break;
 		}
 	});
+	
+	//Post route for creating new users in the DB
+	app.post('/api/user/', function(req, res){
+		console.log(req);
+
+		db.newUser.create({
+			firstname: req.body.firstname,
+			lastname: req.body.lastname,
+			password: req.body.password,
+			email: req.body.email
+		}).then(function(newUser){
+			res.json(newUser);
+		});
+	});
 };
 
