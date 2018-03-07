@@ -20,6 +20,7 @@ function requestGift(req){
 		console.log(data);
 		var result = findGift(req, data);
 		$("#results").html(JSON.stringify(result));
+		$("#exampleModal").modal('toggle');
 	});
 };
 
