@@ -1,7 +1,11 @@
+//Variables for keeping track of result data
+var result;
+var count;
+
 $("#request").on("submit", function(evt){
 	evt.preventDefault();
 
-	//Grab data from inputs and creatings a new object
+	//Grab data from inputs and create a new object
 	var request = {
 		name: $("#name").val().trim(),
 		age: $("#age").val().trim(),
@@ -14,12 +18,33 @@ $("#request").on("submit", function(evt){
 	requestGift(request);
 });
 
+//Control buttons for switching between gift options
+$("#prevGift").on('click', function(evt){
+	if(count-1 == -1){
+		count = result.length-1;
+	} else {
+		count--;
+	}
+	displayGift(result[count]);
+});
+
+$("#nextGift").on('click', function(evt){
+	if(count+1 == 10 || count+1 == result.length){
+		count = 0;
+	} else {
+		count++;
+	}
+	displayGift(result[count]);
+});
+
 //Function for handling creating request
 function requestGift(req){
 	$.get("/api/request/"+req.priority+"/"+req[req.priority], function(data){
-		var result = findGift(req, data);
+		count = 0;
+		result = findGift(req, data);
 		console.log(result);
-		$("#exampleModal").modal('toggle');
+		$("#giftModal").modal('toggle');
+		displayGift(result[count]);
 	});
 };
 
@@ -115,4 +140,10 @@ function sortGifts(arr){
 	tempArray.sort(function(a, b){return b.avgVal - a.avgVal});
 
 	return tempArray;
+}
+
+function displayGift(result){
+	$("#gift-result").html(result.gift);
+	$("#gift-score").html(result.avgVal);
+	$("#gift-matches").html(result.matches);
 }
