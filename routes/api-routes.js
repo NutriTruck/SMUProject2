@@ -1,9 +1,53 @@
-//Require db models
+//Require db models and passport
 var db = require("../models");
+var passport = require("../config/passport");
+//Constant for sequelize operators
 const Op = db.Sequelize.Op;
 
 
 module.exports = function(app){
+	//Post route for checking if user has valid credentials
+	app.post("/api/login", passport.authenticate("local"), function(req, res){
+		res.render("profile");
+	});
+
+	//Post Route for registering a new user
+	app.post("/api/register", function(req, res){
+		db.User.create({
+			firstname: req.body.firstname,
+			lastname: req.body.lastname,
+			email: req.body.email,
+			password: req.body.password
+		}).then(function(){
+			res.redirect(307, "/api/login");
+		}).catch(function(err){
+			console.log(err);
+			res.json(err);
+		});
+	});
+
+	//Logout route
+	app.get("/logout", function(req.res){
+		req.session.destroy(function(err) {
+     		req.logout();
+     		res.render('/');
+   		});
+	});
+
+	//User data route
+	app.get("/api/user_data", function(req, res){
+		if(!req.user){
+			res.json({});
+		}else{
+			res.json({
+				firstname: req.user.firstname,
+				lastname: req.user.lastname,
+				email: req.user.email,
+				id: req.user.id
+			});
+		}
+	});
+
 	//Get route for getting a gift from the DB
 	app.get('/api/gift/', function(req, res){
 		db.Gift.findAll({})
@@ -61,20 +105,6 @@ module.exports = function(app){
 					});
 				break;
 		}
-	});
-	
-	//Post route for creating new users in the DB
-	app.post('/api/user/', function(req, res){
-		console.log(req);
-
-		db.newUser.create({
-			firstname: req.body.firstname,
-			lastname: req.body.lastname,
-			password: req.body.password,
-			email: req.body.email
-		}).then(function(newUser){
-			res.json(newUser);
-		});
 	});
 };
 
