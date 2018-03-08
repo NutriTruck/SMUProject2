@@ -1,6 +1,7 @@
 <div class="container">
-  <h2>Personalize the gift</h2>
-  <p>Answer the following questions so we can help personalize the gift for you</p>
+  <h2>Find a Gift</h2>
+  <p id="message">Please tell us about the wonderful person you want to get a gift for.</p>
+  <div id='results-button'></div>
   <form id="request">
     <div class="form-group">
       <label for="name" required>Name: <span class="error" id="nameErr"></span></label>
@@ -41,8 +42,6 @@
       <input type="submit" class="btn btn-lg btn-success btn-block" value="Submit" id='submit'>
     </div>
   </form>
-
-  <div id='results-button'></div>
 </div>
 
 <div class="modal fade" id="giftModal" tabindex="-1" aria-labelledby="giftModalLabel" aria-hidden="true">
