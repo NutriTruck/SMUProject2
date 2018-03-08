@@ -1,5 +1,7 @@
 var path = require('path');
 
+var isAuth = require("../config/middleware/isAuth");
+
 module.exports = function(app){
 	app.get("/", function(req, res){
 		res.render('home');
@@ -14,14 +16,22 @@ module.exports = function(app){
 	});
 
 	app.get("/login", function(req, res){
-		res.render('login');
+		if(req.user){
+			res.render('profile');
+		} else {
+			res.render('login');
+		}
 	});
 
 	app.get("/register", function(req, res){
-		res.render('register');
+		if(req.user){
+			res.render('profile');
+		} else {
+			res.render('register');
+		}
 	});
 
-	app.get("/profile", function(req, res){
+	app.get("/profile", isAuth, function(req, res){
 		res.render('profile');
 	});
 };
