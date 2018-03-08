@@ -1,35 +1,27 @@
-<!DOCTYPE html><html 
-lang="en">
+<!DOCTYPE html><html lang="en">
 <head> 
  <meta charset="UTF-8"> 
-  <title>Add a gift</title>  <!-- Added link to the jQuery Library -->  
+  <title>Gift Finder</title>  
+  <!-- Added link to the jQuery Library -->  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
   </script> 
+  <!-- Added a link to Bootstrap--> 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
- <!-- Added a link to Bootstrap--> 
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
  
- <!-- Reference external css file -->
-<!-- <link rel="stylesheet" type="text/css" href="login.css"> -->
 </head>
     <body>
-        <nav class="navbar navbar-inverse">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <a class="navbar-brand" href="request">Find a Gift</a>
-            </div>
-            <ul class="nav navbar-nav">
-              <li><a href="/">Gift Finder Home</a></li>
-              <li><a href="/share">Share a Gift</a></li>
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-              <!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Out</a></li> -->
-              <li><a href="login"><span class="glyphicon glyphicon-log-out"></span> Sign In</a></li>
-            </ul>
+        <nav class="navbar navbar-expand navbar-dark bg-primary">
+          <a class="navbar-brand" href="#">Gift Finder</a>
+          <div class="navbar-nav">
+              <a class="nav-item nav-link" href="request">Find a Gift</a>
+              <a class="nav-item nav-link" href="/">Gift Finder Home</a>
+              <a class="nav-item nav-link" href="share">Share a Gift</a>
           </div>
+          <span class="nav navbar-nav">
+            <a class="nav-link" href="login">Sign In</a>
+          </span>
         </nav>
 
     {{{body}}}
