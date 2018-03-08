@@ -11,13 +11,15 @@ $("#add-gift").on("submit", function(evt){
 			hobbies: trimArray($("#hobbies").val().trim().split(',')),
 			likes: trimArray($("#likes").val().trim().split(','))
 		};
-		requestGift(gift);
+		addGift(gift);
 	}
 });
 
 //Function for handling creating request
-function requestGift(gift){
+function addGift(gift){
 	$.post("/api/gift/", gift, function(){
+		//TODO: Some notification of adding gift
+
 		//Reset inputs
 		$("#gift").val('');
 		$("#age").val('');

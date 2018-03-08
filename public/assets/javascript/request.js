@@ -52,7 +52,7 @@ function createGiftee(req, id){
 	}
 
 	$.post("/api/giftee", giftee, function(){
-
+		//TODO: Some notice of successfully adding friend maybe
 	});
 }
 

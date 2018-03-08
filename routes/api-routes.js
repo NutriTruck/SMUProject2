@@ -69,6 +69,15 @@ module.exports = function(app){
 		});
 	});
 
+	//Get route for retrieving giftees
+	app.get('/api/giftee/:id', function(req, res){
+		db.Giftee.findAll({
+			where: {userId: req.params.id}
+		}).then(function(giftees){
+			res.json(giftees);
+		});
+	})
+
 	//Post route for creating a new giftees
 	app.post('/api/giftee', function(req, res){
 		db.Giftee.create({
