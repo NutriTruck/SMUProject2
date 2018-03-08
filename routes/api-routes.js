@@ -92,6 +92,16 @@ module.exports = function(app){
 		});
 	});
 
+	app.delete('/api/giftee/:id', function(req, res){
+		db.Giftee.destroy({
+			where: {
+				id: req.params.id
+			}
+		}).then(function(data){
+			res.json(data);
+		});
+	});
+
 	//Get route for returning a gift from DB
 	app.get('/api/request/:priority/:value', function(req, res){
 		var priority = req.params.priority;
