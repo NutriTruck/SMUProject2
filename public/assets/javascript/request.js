@@ -137,14 +137,32 @@ function sortGifts(arr){
 }
 
 function displayGift(results){
+	var highMatch = 0;
+	var popular = 0;
+
+	//Find the highest value and most popular items
+	for(var i = 0; i < results.length; i++){
+		if(results[i].avgVal > highMatch){
+			highMatch = results[i].avgVal;
+		}
+		if(results[i].matches > popular){
+			popular = results[i].matches;
+		}
+	}
+
+
 	for(var i = 0; i < results.length; i++){
 		$("#carousel-indicators").append("<li data-target='#giftCarousel' data-slide-to='"+results[i]+((i == 0) ? "' class='active'></li>" : "'></li>"));
 		$("#carousel-items").append("<div class='carousel-item"+((i == 0) ? " active'>" : "'>")+
             "<img class='d-block w-100' src='./assets/img/placeholder"+i+".jpeg' alt='"+results[i].gift+"'>"+
             "<div class='carousel-caption d-none d-md-block'>"+
             "<h5>"+results[i].gift+"</h5>"+
-            "<p>Average match score of "+results[i].avgVal+".</p>"+
-            "<p>Matched "+results[i].matches+" times.</p>"+
+            ((results[i].avgVal == highMatch) ? 
+            "<p>Average match score of "+results[i].avgVal+". Best Match!</p>":
+            "<p>Average match score of "+results[i].avgVal+".</p>")+
+            ((results[i].matches == popular) ?
+            "<p>Matched "+results[i].matches+" times. Most Popular!</p>":
+            "<p>Matched "+results[i].matches+" times.</p>")+
             "</div>"+
         "</div>");
 	}
