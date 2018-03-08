@@ -1,6 +1,3 @@
-//Variables for keeping track of result data
-var results;
-
 $("#request").on("submit", function(evt){
 	evt.preventDefault();
 
@@ -32,15 +29,13 @@ function requestGift(req){
 		if(data.length == 0){
 			alert("No matches found :(");
 		} else {
-			//Log the results to the page
-			count = 0;
-			results = findGift(req, data);
+			//Find the gift
+			var results = findGift(req, data);
 
 			//Creates a button for opening the modal if you close it
 			$("#results-button").html("<button id='modal-toggle'>Your Results</button>");
 
 			//Open modal and display results
-			console.log(results);
 			$("#giftModal").modal('toggle');
 			displayGift(results);
 		}
@@ -143,7 +138,6 @@ function sortGifts(arr){
 
 function displayGift(results){
 	for(var i = 0; i < results.length; i++){
-		console.log(i);
 		$("#carousel-indicators").append("<li data-target='#giftCarousel' data-slide-to='"+results[i]+((i == 0) ? "' class='active'></li>" : "'></li>"));
 		$("#carousel-items").append("<div class='carousel-item"+((i == 0) ? " active'>" : "'>")+
             "<img class='d-block w-100' src='./assets/img/placeholder"+i+".jpeg' alt='"+results[i].gift+"'>"+
@@ -158,8 +152,6 @@ function displayGift(results){
 
 function validation(){
 	var failure = 0;
-	console.log($("#hobbies").val());
-
 	//Clear any alerts
 	$(".alert").removeClass('alert alert-danger');
 	$(".error").html("");
