@@ -4,13 +4,13 @@ $(document).ready(function(){
 		evt.preventDefault();
 		
 		var newUser = {
-			firstName: $("#firstname").val().trim();
-			lastName: $("#lastname").val().trim();
-			email: $("#email").val().trim();
-			password: $("#password").val().trim();
+			firstname: $("#firstname").val().trim(),
+			lastname: $("#lastname").val().trim(),
+			email: $("#email").val().trim(),
+			password: $("#password").val().trim()
 		};
 		
-		if(firstname == "" || lastName == "" || email !== "" || password == ""){
+		if(newUser.firstname == "" || newUser.lastname == "" || newUser.email == "" || newUser.password == ""){
 			return;
 		}
 
@@ -18,12 +18,14 @@ $(document).ready(function(){
 	});
 
 	function registerUser(user){
+		console.log(user);
 		$.post("/api/register", {
-			firstName: user.firstname,
+			firstname: user.firstname,
 			lastname: user.lastname,
 			email: user.email,
 			password: user.password
 		}).then(function(data){
+			console.log(data);
 			window.location.replace(data);
 		}).catch(function(err){
 			console.log(err);

@@ -8,7 +8,7 @@ const Op = db.Sequelize.Op;
 module.exports = function(app){
 	//Post route for checking if user has valid credentials
 	app.post("/api/login", passport.authenticate("local"), function(req, res){
-		res.render("profile");
+		res.json("/profile");
 	});
 
 	//Post Route for registering a new user
@@ -27,10 +27,10 @@ module.exports = function(app){
 	});
 
 	//Logout route
-	app.get("/logout", function(req.res){
+	app.get("/logout", function(req, res){
 		req.session.destroy(function(err) {
      		req.logout();
-     		res.render('/');
+     		res.redirect('/');
    		});
 	});
 

@@ -16,7 +16,7 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({type: "application/vnd.api+json"}));
 
 //Set up sessions
-app.use(session({secret: "keyboard cat", resave: true, saveUninitialized: true}));
+app.use(session({secret: "IT'S A SECRET TO EVERYBODY", resave: true, saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 
