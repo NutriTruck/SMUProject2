@@ -8,13 +8,12 @@ $(document).ready(function(){
 			}else{
 				for(var i = 0; i < res.length; i++){
 					var date = new Date(res[i].createdAt);
-					console.log(date);
 					var dateStr = date.getMonth()+1 + "/" + date.getDate();
 
-					$("#gifteesTable").append("<div style='padding: 10px'>"+
+					$("#gifteesTable").append("<div style='padding: 5px 10px'>"+
 	    									  "<div style='display: inline-block; margin-right: 10px'>"+res[i].name+" on "+dateStr+"</div>"+ 
-	    									  "<button style='margin: 10px' class='request btn btn-primary' data-id='"+res[i].id+"'>Request a gift</button>"+
-	    									  "<button style='margin: 10px' class='delete btn btn-danger' data-id='"+res[i].id+"'>Delete</button>"+
+	    									  "<button style='margin: 5px' class='request btn btn-primary' data-id='"+res[i].id+"'>Request a gift</button>"+
+	    									  "<button style='margin: 5px' class='delete btn btn-danger' data-id='"+res[i].id+"'>Delete</button>"+
 	  										  "</div>");
 				}
 			}
