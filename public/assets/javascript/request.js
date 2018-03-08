@@ -1,25 +1,49 @@
+//Variables for keeping track of result data
+var results;
+
 $("#request").on("submit", function(evt){
 	evt.preventDefault();
 
-	//Grab data from inputs and creatings a new object
-	var request = {
-		name: $("#name").val().trim(),
-		age: $("#age").val().trim(),
-		gender: $("#gender").val(),
-		hobbies: trimArray($("#hobby").val().trim().split(',')),
-		likes: trimArray($("#like").val().trim().split(',')),
-		priority: $("#priority").val().toLowerCase()
-	};
+	//Validates form input
+	if(validation()){
+		//Grab data from inputs and create a new object
+		var request = {
+			name: $("#name").val().trim(),
+			age: $("#age").val().trim(),
+			gender: $("#gender").val(),
+			hobbies: trimArray($("#hobbies").val().trim().split(',')),
+			likes: trimArray($("#likes").val().trim().split(',')),
+			priority: $("#priority").val().toLowerCase()
+		};
 
-	requestGift(request);
+		requestGift(request);
+	}
+});
+
+//Toggles the modal when available
+$(document).on('click', '#modal-toggle', function(evt){
+	$("#giftModal").modal('toggle');
 });
 
 //Function for handling creating request
 function requestGift(req){
 	$.get("/api/request/"+req.priority+"/"+req[req.priority], function(data){
-		console.log(data);
-		var result = findGift(req, data);
-		$("#results").html(JSON.stringify(result));
+		//Handle no results
+		if(data.length == 0){
+			alert("No matches found :(");
+		} else {
+			//Log the results to the page
+			count = 0;
+			results = findGift(req, data);
+
+			//Creates a button for opening the modal if you close it
+			$("#results-button").html("<button id='modal-toggle'>Your Results</button>");
+
+			//Open modal and display results
+			console.log(results);
+			$("#giftModal").modal('toggle');
+			displayGift(results);
+		}
 	});
 };
 
@@ -73,12 +97,12 @@ function findGift(giftee, gifts){
 		//If a gift if not present, add it, else average out the value
 		arrIndex = searchGifts(giftArray, gifts[i].gift);
 		if(arrIndex === -1){
-			giftArray.push([gifts[i].gift, matchValue, 1]);
+			giftArray.push({gift: gifts[i].gift, totalVal: matchValue, matches: 1});
 		} else {
 			//Add match value to the total
-			giftArray[arrIndex][1] += matchValue;
+			giftArray[arrIndex].totalVal += matchValue;
 			//Increase number of times gift was suggested
-			giftArray[arrIndex][2]++;
+			giftArray[arrIndex].matches++;
 		}
 	}
 
@@ -93,10 +117,10 @@ function trimArray(arr){
 	return arr;
 };
 
-//Function for searching the multidimensional array for a value
+//Function for searching the object for a value
 function searchGifts(arr, value){
 	for(var i = 0; i < arr.length; i++){
-		if(arr[i][0] === value){
+		if(arr[i].gift === value){
 			return i;
 		}
 	}
@@ -109,10 +133,65 @@ function sortGifts(arr){
 
 	for(var i = 0; i < arr.length; i++){
 		//Push the array values, averaging the match closeness
-		tempArray.push([arr[i][0], arr[i][1]/arr[i][2], arr[i][2]]);
+		tempArray.push({gift: arr[i].gift, avgVal: arr[i].totalVal/arr[i].matches, matches: arr[i].matches});
 	}
 
-	tempArray.sort(function(a, b){return b[1] - a[1]});
+	tempArray.sort(function(a, b){return b.avgVal - a.avgVal});
 
 	return tempArray;
+}
+
+function displayGift(results){
+	for(var i = 0; i < results.length; i++){
+		console.log(i);
+		$("#carousel-indicators").append("<li data-target='#giftCarousel' data-slide-to='"+results[i]+((i == 0) ? "' class='active'></li>" : "'></li>"));
+		$("#carousel-items").append("<div class='carousel-item"+((i == 0) ? " active'>" : "'>")+
+            "<img class='d-block w-100' src='./assets/img/placeholder"+i+".jpeg' alt='"+results[i].gift+"'>"+
+            "<div class='carousel-caption d-none d-md-block'>"+
+            "<h5>"+results[i].gift+"</h5>"+
+            "<p>Average match score of "+results[i].avgVal+".</p>"+
+            "<p>Matched "+results[i].matches+" times.</p>"+
+            "</div>"+
+        "</div>");
+	}
+}
+
+function validation(){
+	var failure = 0;
+	console.log($("#hobbies").val());
+
+	//Clear any alerts
+	$(".alert").removeClass('alert alert-danger');
+	$(".error").html("");
+
+	if($("#name").val() === ""){
+		$("#name").addClass('alert alert-danger');
+		$("#nameErr").html("Please fill out this field.").addClass("alert alert-danger");
+		failure++;
+	}
+	if($("#age").val() === ""){
+		$("#age").addClass('alert alert-danger');
+		$("#ageErr").html("Please fill out this field.").addClass("alert alert-danger");
+		failure++;
+	}else if(isNaN($("#age").val())){
+		$("#age").addClass('alert alert-danger');
+		$("#ageErr").html("Please enter a number.").addClass("alert alert-danger");
+		failure++;
+	}
+	if($("#hobbies").val() == ""){
+		$("#hobbies").addClass('alert alert-danger');
+		$("#hobbyErr").html("Please fill out this field.").addClass("alert alert-danger");
+		failure++;
+	}
+	if($("#likes").val() == ""){
+		$("#likes").addClass('alert alert-danger');
+		$("#likeErr").html("Please fill out this field.").addClass("alert alert-danger");
+		failure++;
+	}
+
+	if(failure == 0){
+		return true;
+	} else {
+		return false;
+	}
 }
