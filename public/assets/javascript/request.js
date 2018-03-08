@@ -146,7 +146,7 @@ function displayGift(results){
 		console.log(i);
 		$("#carousel-indicators").append("<li data-target='#giftCarousel' data-slide-to='"+results[i]+((i == 0) ? "' class='active'></li>" : "'></li>"));
 		$("#carousel-items").append("<div class='carousel-item"+((i == 0) ? " active'>" : "'>")+
-            "<img class='d-block w-100' src='./assets/img/KirumiPlaceholder.png' alt='"+results[i].gift+"'>"+
+            "<img class='d-block w-100' src='./assets/img/placeholder"+i+".jpeg' alt='"+results[i].gift+"'>"+
             "<div class='carousel-caption d-none d-md-block'>"+
             "<h5>"+results[i].gift+"</h5>"+
             "<p>Average match score of "+results[i].avgVal+".</p>"+
