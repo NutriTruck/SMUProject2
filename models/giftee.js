@@ -1,5 +1,8 @@
 module.exports = function(sequelize, DataTypes) {
 	var Giftee = sequelize.define("Giftee", {
+		userId: {
+			type: DataTypes.INTEGER
+		},
 		name: {
 			type: DataTypes.STRING
 		},
@@ -11,7 +14,6 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		hobbies: {
 			type: DataTypes.STRING,
-			allowNull: true,
 			get: function(){
 				return this.getDataValue('hobbies').split(';');
 			},
@@ -21,7 +23,6 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		likes: {
 			type: DataTypes.STRING,
-			allowNull: true,
 			get: function(){
 				return this.getDataValue('likes').split(';');
 			},

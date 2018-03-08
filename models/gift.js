@@ -11,7 +11,6 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		hobbies: {
 			type: DataTypes.STRING,
-			allowNull: true,
 			get: function(){
 				return this.getDataValue('hobbies').split(';');
 			},
@@ -21,7 +20,6 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		likes: {
 			type: DataTypes.STRING,
-			allowNull: true,
 			get: function(){
 				return this.getDataValue('likes').split(';');
 			},

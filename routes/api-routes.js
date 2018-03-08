@@ -69,6 +69,20 @@ module.exports = function(app){
 		});
 	});
 
+	//Post route for creating a new giftees
+	app.post('/api/giftee', function(req, res){
+		db.Giftee.create({
+			userId: req.body.userId,
+			name: req.body.name,
+			age: req.body.age,
+			gender: req.body.gender,
+			hobbies: req.body.hobbies,
+			likes: req.body.likes
+		}).then(function(giftee){
+			res.json(giftee);
+		});
+	});
+
 	//Get route for returning a gift from DB
 	app.get('/api/request/:priority/:value', function(req, res){
 		var priority = req.params.priority;
