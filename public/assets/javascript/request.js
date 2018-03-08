@@ -1,26 +1,60 @@
-$("#request").on("submit", function(evt){
-	evt.preventDefault();
+$(document).ready(function(){
+	var userId;
 
-	//Validates form input
-	if(validation()){
-		//Grab data from inputs and create a new object
-		var request = {
-			name: $("#name").val().trim(),
-			age: $("#age").val().trim(),
-			gender: $("#gender").val(),
-			hobbies: trimArray($("#hobbies").val().trim().split(',')),
-			likes: trimArray($("#likes").val().trim().split(',')),
-			priority: $("#priority").val().toLowerCase()
-		};
+	$.get("/api/user_data").then(function(data){
+		if(data.id == undefined){
+			$("#saveBox").hide();
+		}else{
+			userId = data.id;
+			$("#saveBox").show();
+		}
+	});
 
-		requestGift(request);
+
+	$("#request").on("submit", function(evt){
+		evt.preventDefault();
+
+		//Validates form input
+		if(validation()){
+			//Grab data from inputs and create a new object
+			var request = {
+				name: $("#name").val().trim(),
+				age: $("#age").val().trim(),
+				gender: $("#gender").val(),
+				hobbies: trimArray($("#hobbies").val().trim().split(',')),
+				likes: trimArray($("#likes").val().trim().split(',')),
+				priority: $("#priority").val().toLowerCase()
+			};
+
+			if($("#saveReq").val() == "on"){
+				createGiftee(request, userId);
+			}
+
+			requestGift(request);
+		}
+	});
+
+	//Toggles the modal when available
+	$(document).on('click', '#modal-toggle', function(evt){
+		$("#giftModal").modal('toggle');
+	});
+});
+
+//Function to create a giftee
+function createGiftee(req, id){
+	var giftee = {
+		userId: id,
+		name: req.name,
+		gender: req.gender,
+		age: req.age,
+		hobbies: req.hobbies,
+		likes: req.likes
 	}
-});
 
-//Toggles the modal when available
-$(document).on('click', '#modal-toggle', function(evt){
-	$("#giftModal").modal('toggle');
-});
+	$.post("/api/giftee", giftee, function(){
+		//TODO: Some notice of successfully adding friend maybe
+	});
+}
 
 //Function for handling creating request
 function requestGift(req){

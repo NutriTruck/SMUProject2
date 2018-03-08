@@ -69,6 +69,15 @@ module.exports = function(app){
 		});
 	});
 
+	//Get route for retrieving giftees
+	app.get('/api/giftee/:id', function(req, res){
+		db.Giftee.findAll({
+			where: {userId: req.params.id}
+		}).then(function(giftees){
+			res.json(giftees);
+		});
+	})
+
 	//Post route for creating a new giftees
 	app.post('/api/giftee', function(req, res){
 		db.Giftee.create({
@@ -80,6 +89,16 @@ module.exports = function(app){
 			likes: req.body.likes
 		}).then(function(giftee){
 			res.json(giftee);
+		});
+	});
+
+	app.delete('/api/giftee/:id', function(req, res){
+		db.Giftee.destroy({
+			where: {
+				id: req.params.id
+			}
+		}).then(function(data){
+			res.json(data);
 		});
 	});
 
