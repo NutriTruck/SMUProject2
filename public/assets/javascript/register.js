@@ -18,7 +18,6 @@ $(document).ready(function(){
 	});
 
 	function registerUser(user){
-		console.log(user);
 		$.post("/api/register", {
 			firstname: user.firstname,
 			lastname: user.lastname,

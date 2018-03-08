@@ -15,19 +15,19 @@ module.exports = function(sequelize, DataTypes) {
 		hobbies: {
 			type: DataTypes.STRING,
 			get: function(){
-				return this.getDataValue('hobbies').split(';');
+				return this.getDataValue('hobbies').split(',');
 			},
 			set: function(val){
-				this.setDataValue('hobbies', val.join(';'));
+				this.setDataValue('hobbies', val.join(','));
 			}
 		},
 		likes: {
 			type: DataTypes.STRING,
 			get: function(){
-				return this.getDataValue('likes').split(';');
+				return this.getDataValue('likes').split(',');
 			},
 			set: function(val){
-				this.setDataValue('likes').split(';');
+				this.setDataValue('likes', val.join(','));
 			}
 		}
 	});
