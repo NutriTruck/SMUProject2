@@ -167,8 +167,12 @@ function sortGifts(arr){
 	}
 
 	tempArray.sort(function(a, b){return b.avgVal - a.avgVal});
-
-	return tempArray;
+    
+	if(tempArray.length > 10){
+		return tempArray.slice(0,10);
+	}else{
+		return tempArray;
+	}
 }
 
 function displayGift(results){
