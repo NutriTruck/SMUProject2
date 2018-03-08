@@ -27,13 +27,14 @@ function requestGift(req){
 	$.get("/api/request/"+req.priority+"/"+req[req.priority], function(data){
 		//Handle no results
 		if(data.length == 0){
-			alert("No matches found :(");
+			$("#message").addClass("alert alert-danger").html("We're very sorry but no matches were found. Please try again or change the search priority. <span style='font-size:120%; font-style:bold;'>:(</span>");
 		} else {
 			//Find the gift
 			var results = findGift(req, data);
 
 			//Creates a button for opening the modal if you close it
-			$("#results-button").html("<button id='modal-toggle'>Your Results</button>");
+			$("#results-button").html("<button class='btn btn-lg btn-primary btn-block' id='modal-toggle'>Your Results</button>");
+			$("#message").removeClass("alert alert-danger").html("Check out your amazing results! Not seeing what you want? Request more gifts below.");
 
 			//Open modal and display results
 			$("#giftModal").modal('toggle');
@@ -150,7 +151,11 @@ function displayGift(results){
 		}
 	}
 
+	//Clear carousel
+	$("#carousel-indicators").html("");
+	$("#carousel-items").html("");
 
+	//Add data into carousel
 	for(var i = 0; i < results.length; i++){
 		$("#carousel-indicators").append("<li data-target='#giftCarousel' data-slide-to='"+results[i]+((i == 0) ? "' class='active'></li>" : "'></li>"));
 		$("#carousel-items").append("<div class='carousel-item"+((i == 0) ? " active'>" : "'>")+
