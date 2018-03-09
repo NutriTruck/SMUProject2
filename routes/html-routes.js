@@ -34,4 +34,13 @@ module.exports = function(app){
 	app.get("/profile", isAuth, function(req, res){
 		res.render('profile');
 	});
+
+
+	app.get("/add", function(req, res){
+		res.render('add');
+	});
+
+	app.get("/options", function(req, res){
+		res.render('options');
+	});
 };
